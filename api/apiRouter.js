@@ -10,11 +10,7 @@ apiRouter.get("/", (req, res) => {
     res.send("hello");
 })
 
-apiRouter.use("/products", productApiRouter);
-
 apiRouter.use("/login", authApiRouter);
-apiRouter.use("/users", userApiRouter);
-
 
 apiRouter.use((req, res, next) => {
     if(req.session.userAccount){
@@ -23,4 +19,9 @@ apiRouter.use((req, res, next) => {
         res.status(401).send({success: 0, message: "Ban chua dang nhap"})
     }
 })
+
+
+apiRouter.use("/products", productApiRouter);
+apiRouter.use("/users", userApiRouter);
+
 module.exports = apiRouter;

@@ -12,7 +12,7 @@ mongoose.connect("mongodb+srv://quannguyen:adgadg123@cluster0-2uuxf.azure.mongod
 })
 
 app.use(session({
-  secret: "mySceret",
+  secret: "ahihi",
   resave: false,
   saveUninitialized: false,
   cookie: {

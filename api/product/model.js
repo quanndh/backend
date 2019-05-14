@@ -8,7 +8,7 @@ const productModel = new Schema({
     discription: {type: String, require: true}, 
     imageUrl: {type: String, require: true},
     price: {type: Number, require: true, default: 0},
-    category: {type: String, require: true, enum: ["newBorn", "kid", "teenager", "adult"]},
+    category: {type: String, require: true, enum: ["interior", "imported", "handmade"]},
     stock: {type:Number, required: true, default: 0},
 })
 
