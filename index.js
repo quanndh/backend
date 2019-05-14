@@ -6,7 +6,7 @@ const cors = require("cors");
 const apiRouter = require("./api/apiRouter");
 const session = require("express-session");
 
-mongoose.connect("mongodb+srv://quannguyen:adgadg123@cluster0-8srlt.mongodb.net/Shop?retryWrites=true",{useNewUrlParser: true}, err => {
+mongoose.connect("mongodb+srv://quannguyen:adgadg123@cluster0-2uuxf.azure.mongodb.net/shop?retryWrites=true",{useNewUrlParser: true}, err => {
     if(err) console.log(err);
     else console.log("Connected");
 })

@@ -48,19 +48,19 @@ productApiRouter.delete("/:id", (req, res) => {
     })
 })
 
-productApiRouter.post("/:id/feedback", (req, res) => {
-    productModel.findByIdAndUpdate( 
-        req.params.id,
-        {
-            $push: {
-                feedback: { createdBy: req.body.userId, content: req.body.content }
-            }
-        }
-    )
-    .then(updatedProduct => res.status(200).send({success: 1, data: updatedProduct}))
-    .catch(err => res.status(500).send({success: 0, err: err}))
+// productApiRouter.post("/:id/feedback", (req, res) => {
+//     productModel.findByIdAndUpdate( 
+//         req.params.id,
+//         {
+//             $push: {
+//                 feedback: { createdBy: req.body.userId, content: req.body.content }
+//             }
+//         }
+//     )
+//     .then(updatedProduct => res.status(200).send({success: 1, data: updatedProduct}))
+//     .catch(err => res.status(500).send({success: 0, err: err}))
 
-})
+// })
 
 
 
