@@ -12,13 +12,13 @@ apiRouter.get("/", (req, res) => {
 
 apiRouter.use("/login", authApiRouter);
 
-apiRouter.use((req, res, next) => {
-    if(req.session.userAccount){
-        next();
-    } else {
-        res.status(401).send({success: 0, message: "Ban chua dang nhap"})
-    }
-})
+// apiRouter.use((req, res, next) => {
+//     if(req.session.userAccount){
+//         next();
+//     } else {
+//         res.status(401).send({success: 0, message: "Ban chua dang nhap"})
+//     }
+// })
 
 
 apiRouter.use("/products", productApiRouter);

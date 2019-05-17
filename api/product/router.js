@@ -11,17 +11,21 @@ productApiRouter.post("/", (req, res) => {
 
 productApiRouter.get("/", (req, res) => {
     productModel.find({})
-        .populate("feedback.createdBy")
         .then(products => res.status(200).send({success: 1, data: products}))
         .catch(err => res.status(500).send({success: 0, err: err}))
 })
 
 productApiRouter.get("/:id", (req, res) => {
     productModel.findOne({_id : req.params.id})
-        .populate("feedback.createdBy")
         .then(product => res.status(200).send({success: 1, data: product}))
         .catch(err => res.status(500).send({success: 0, err: err}))
 
+})
+
+productApiRouter.get("/category/:category", (req, res) => {
+    productModel.find({category: req.params.category})
+        .then(products => {res.status(200).send({success: 1, data: products})})
+        .catch(err => res.status(500).send({success: 0, err: err}))
 })
 
 productApiRouter.put("/:id", (req, res) => {

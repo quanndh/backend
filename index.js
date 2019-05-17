@@ -21,7 +21,7 @@ app.use(session({
   }
 }))
 
-app.use(cors({ origin: ["http://localhost:3000", "https://toyshop-client.herokuapp.com"], credentials: true }))
+app.use(cors({ origin: ["http://localhost:3000"], credentials: true }))
 
 // app.use((req, res, next) => {
 //   res.setHeader("X-Frame-Options", "ALLOWALL");
