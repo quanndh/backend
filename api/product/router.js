@@ -15,17 +15,23 @@ productApiRouter.get("/", (req, res) => {
         .catch(err => res.status(500).send({success: 0, err: err}))
 })
 
+productApiRouter.get("/filter", (req, res) => {
+    if(req.query.price && req.query.category){
+        productModel.find({$and: [ { price: { $gte: req.query.price*1 } }, {category: req.query.category}]})
+            .then(products => {res.status(200).send({success: 1, data: products})})
+            .catch(err => res.status(500).send({success: 0, err: err}))
+    } else if(!req.query.category  && req.query.price ){
+        productModel.find({ price: { $gte: req.query.price*1 }} )
+            .then(products => {res.status(200).send({success: 1, data: products})})
+            .catch(err => res.status(500).send({success: 0, err: err}))
+    } 
+})
+
 productApiRouter.get("/:id", (req, res) => {
     productModel.findOne({_id : req.params.id})
         .then(product => res.status(200).send({success: 1, data: product}))
         .catch(err => res.status(500).send({success: 0, err: err}))
 
-})
-
-productApiRouter.get("/category/:category", (req, res) => {
-    productModel.find({category: req.params.category})
-        .then(products => {res.status(200).send({success: 1, data: products})})
-        .catch(err => res.status(500).send({success: 0, err: err}))
 })
 
 productApiRouter.put("/:id", (req, res) => {
