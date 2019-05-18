@@ -5,12 +5,12 @@ const userModel = require("./model");
 const bcrypt = require("bcryptjs");
 
 userApiRouter.post("/", (req, res) => {
-    const {account, password, name} = req.body;
+    const {email, password, username} = req.body;
 
     const salt = bcrypt.genSaltSync(12);
     const hashPw = bcrypt.hashSync(password, salt);
 
-    userModel.create({account, password: hashPw, name})
+    userModel.create({email, password: hashPw, username})
         .then(createdUser => res.status(200).redirect("https://localhost:3000"))
         .catch(err => res.status(500).send({success: 0, err: err}))
 })
@@ -33,9 +33,9 @@ userApiRouter.put("/:id", (req, res) => {
     const hashPw = bcrypt.hashSync(req.body.password, salt);
     userModel.update(
         {_id: req.params.id},
-        {
+        {   
             password: hashPw,
-            name: req.body.name,
+            username: req.body.username,
         }
     )
     .then(savedUser => res.status(200).send({success: 1, data: savedUser}))

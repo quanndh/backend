@@ -6,18 +6,25 @@ const authRouter = Router;
 const userModel = require("../user/model");
 
 authRouter.post("/", (req, res) => {
-    const {account, password} = req.body;
-    if(!account || !password){
-        res.status(400).send({success: 0, message: "Thiếu account hoặc password"});
+    const {email, password} = req.body;
+    if(!email || !password){
+        res.status(400).send({success: 0, message: "Thiếu email hoặc password"});
     } else {
-        userModel.findOne({account})
+        userModel.findOne({email})
         .then(userFound => {
             if(!userFound || !userFound._id){
                 res.status(404).send({success: 0, message: "Nguoi dung khong ton tai"});
             } else {
                 if(bcrypt.compareSync(password, userFound.password)){
-                    req.session.userAccount = {account};
+                    let user = {
+                        username: userFound.username,
+                        id: userFound._id,
+                        email: userFound.email
+                    }
+                    req.session.user = user;
+                    
                     res.send({success: 1, message:"đã đăng nhập"});
+                    // res.redirect("http://localhost:3000/");
                 } else {
                     res.status(401).send({success: 0, message: "Sai mat khau"});
                 }
@@ -30,10 +37,11 @@ authRouter.post("/", (req, res) => {
 })
 
 authRouter.get("/me", (req, res) => {
-    if(!req.session.userAccount){
-        res.redirect("https://toyshop-client.herokuapp.com/login")
+    if(!req.session.user){
+        // res.redirect("http://localhost:3000/")
+        res.status(403).send({success: 0, message: ' unauthozied'})
     } else {
-        userModel.findOne(req.session.userAccount, "-password")
+        userModel.findById(req.session.user.id, "-password")
         .then(userFound => {
             res.send({success: 1, message: userFound});
         })
