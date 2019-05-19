@@ -5,6 +5,7 @@ const apiRouter = Router();
 const productApiRouter = require("./product/router");
 const userApiRouter = require("./user/router");
 const authApiRouter = require("./auth/router");
+const orderApiRouter = require("./order/router");
 
 apiRouter.get("/", (req, res) => {
     res.send("hello");
@@ -24,6 +25,6 @@ apiRouter.use((req, res, next) => {
     }
 })
 
-
+apiRouter.use("/order", orderApiRouter);
 
 module.exports = apiRouter;
