@@ -11,7 +11,7 @@ userApiRouter.post("/", (req, res) => {
     const hashPw = bcrypt.hashSync(password, salt);
 
     userModel.create({email, password: hashPw, username})
-        .then(createdUser => res.status(200).redirect("https://localhost:3000"))
+        .then(createdUser => res.status(200).send("created" + createdUser))
         .catch(err => res.status(500).send({success: 0, err: err}))
 })
 
