@@ -10,6 +10,7 @@ apiRouter.get("/", (req, res) => {
     res.send("hello");
 })
 
+apiRouter.use("/products", productApiRouter);
 apiRouter.use("/login", authApiRouter);
 
 apiRouter.use((req, res, next) => {
@@ -21,7 +22,6 @@ apiRouter.use((req, res, next) => {
 })
 
 
-apiRouter.use("/products", productApiRouter);
 apiRouter.use("/users", userApiRouter);
 
 module.exports = apiRouter;
