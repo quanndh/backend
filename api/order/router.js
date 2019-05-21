@@ -24,7 +24,7 @@ orderApiRouter.post("/", (req, res) => {
                   subject: "Confirm ✔", 
                   text: `Confirm your order
                     ${createdOrder.orderedItems.map(item => {
-                        return "Product: " + item.title + " ,quantity: " + item.qty;
+                        return "\tProduct: " + item.title + " ,quantity: " + item.qty +"\n";
                     })}
                   `
                 });
