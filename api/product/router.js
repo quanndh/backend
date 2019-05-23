@@ -10,7 +10,12 @@ productApiRouter.post("/", (req, res) => {
 })
 
 productApiRouter.get("/", (req, res) => {
+    const limit = req.query.perPage || 8;
+    const page = req.query.page || 1;
+    const skip = limit * (page - 1);
     productModel.find({})
+        .limit(limit)
+        .skip(skip)
         .then(products => res.status(200).send({success: 1, data: products}))
         .catch(err => res.status(500).send({success: 0, err: err}))
 })
