@@ -13,10 +13,15 @@ productApiRouter.get("/", (req, res) => {
     const limit = req.query.perPage || 8;
     const page = req.query.page || 1;
     const skip = limit * (page - 1);
+    let nPages;
+    productModel.count({}, (err, count) => {
+        if(err) console.log(err)
+        else nPages =  Math.ceil(count / limit)
+    })
     productModel.find({})
         .limit(limit)
         .skip(skip)
-        .then(products => res.status(200).send({success: 1, data: products}))
+        .then(products => res.status(200).send({success: 1, data: products, nPages: nPages}))
         .catch(err => res.status(500).send({success: 0, err: err}))
 })
 
