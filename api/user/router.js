@@ -7,8 +7,11 @@ const bcrypt = require("bcryptjs");
 userApiRouter.post("/", (req, res) => {
     const {email, password, username} = req.body;
 
-    let user = userModel.find({email: email})
-    if(user){
+    let found = false;
+    userModel.find({email: email})
+    .then(() => found = true)
+    .catch(err => console.log(err))
+    if(found){
         res.send({success: 0, message: "Email is taken"})
     } else {
         const salt = bcrypt.genSaltSync(12);
