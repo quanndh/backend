@@ -26,13 +26,20 @@ productApiRouter.get("/", (req, res) => {
 })
 
 productApiRouter.get("/filter", (req, res) => {
+    const limit = req.query.perPage || 8;
+    const page = req.query.page || 1;
+    const skip = limit * (page - 1);
     if(req.query.price && req.query.category !== "all"){
         productModel.find({$and: [ { price: { $gte: req.query.price*1 } }, {category: req.query.category}]})
-            .then(products => {res.status(200).send({success: 1, data: products})})
+            .limit(limit)
+            .skip(skip)
+            .then(products => {res.status(200).send({success: 1, data: products, mess: 1})})
             .catch(err => res.status(500).send({success: 0, err: err}))
     } else if(req.query.category === "all"  && req.query.price ){
         productModel.find({ price: { $gte: req.query.price*1 }} )
-            .then(products => {res.status(200).send({success: 1, data: products})})
+            .limit(limit)
+            .skip(skip)
+            .then(products => {res.status(200).send({success: 1, data: products, mess: 2})})
             .catch(err => res.status(500).send({success: 0, err: err}))
     } 
 })
