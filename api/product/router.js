@@ -35,7 +35,7 @@ productApiRouter.get("/filter", (req, res) => {
             .skip(skip)
             .then(products => {res.status(200).send({success: 1, data: products, mess: 1})})
             .catch(err => res.status(500).send({success: 0, err: err}))
-    } else if(req.query.category === "all"  && req.query.price ){
+    } else if(req.query.category === "all"  && req.query.price !== "200" ){
         productModel.find({ price: { $gte: req.query.price*1 }} )
             .limit(limit)
             .skip(skip)
