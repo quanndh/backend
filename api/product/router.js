@@ -23,13 +23,13 @@ productApiRouter.get("/", (req, res) => {
         productModel.find({$and: [ { price: { $gte: req.query.price*1 } }, {category: req.query.category}]})
             .limit(limit)
             .skip(skip)
-            .then(products => {res.status(200).send({success: 1, data: products, mess: 1})})
+            .then(products => {res.status(200).send({success: 1, data: products, nPages: nPages})})
             .catch(err => res.status(500).send({success: 0, err: err}))
     } else if(req.query.category === "all"  && req.query.price !== "200" ){
         productModel.find({ price: { $gte: req.query.price*1 }} )
             .limit(limit)
             .skip(skip)
-            .then(products => {res.status(200).send({success: 1, data: products, mess: 2})})
+            .then(products => {res.status(200).send({success: 1, data: products, nPages: nPages})})
             .catch(err => res.status(500).send({success: 0, err: err}))
     }  else if(req.query.price === "200" && req.query.category === "all") {
         productModel.find({})
