@@ -13,7 +13,7 @@ userApiRouter.post("/", (req, res) => {
     .catch(err => console.log(err))
 
     if(found){
-        res.status(1).send({success: 0, message: "Email is taken"})
+        res.status(401).send({success: 0, message: "Email is taken"})
     } else {
         const salt = bcrypt.genSaltSync(12);
         const hashPw = bcrypt.hashSync(password, salt);
