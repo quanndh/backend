@@ -32,21 +32,21 @@ productApiRouter.get("/filter", (req, res) => {
     let nPages;
     
     if(req.query.price && req.query.category !== "all"){
-        productModel.count({$and: [ { price: { $gte: req.query.price1*1 } }, {category: req.query.category}, { price: { $lte: req.query.price2*1 } }]}, (err, count) => {
+        productModel.count({$and: [ { price: { $gte: req.query.price*1 } }, {category: req.query.category}, { price: { $lte: req.query.price2*1 } }]}, (err, count) => {
             if(err) console.log(err)
             else nPages =  Math.ceil(count / limit)
         })
-        productModel.find({$and: [ { price: { $gte: req.query.price1*1 } }, {category: req.query.category}, { price: { $lte: req.query.price2*1 } }]})
+        productModel.find({$and: [ { price: { $gte: req.query.price*1 } }, {category: req.query.category}, { price: { $lte: req.query.price2*1 } }]})
             .limit(limit)
             .skip(skip)
             .then(products => {res.status(200).send({success: 1, data: products, nPages: nPages})})
             .catch(err => res.status(500).send({success: 0, err: err}))
     } else if(req.query.category === "all"  && req.query.price){
-        productModel.count({$and: [ { price: { $gte: req.query.price1*1 } }, { price: { $lte: req.query.price2*1 } }]}, (err, count) => {
+        productModel.count({$and: [ { price: { $gte: req.query.price*1 } }, { price: { $lte: req.query.price2*1 } }]}, (err, count) => {
             if(err) console.log(err)
             else nPages =  Math.ceil(count / limit)
         })
-        productModel.find({$and: [ { price: { $gte: req.query.price1*1 } }, { price: { $lte: req.query.price2*1 } }]} )
+        productModel.find({$and: [ { price: { $gte: req.query.price*1 } }, { price: { $lte: req.query.price2*1 } }]} )
             .limit(limit)
             .skip(skip)
             .then(products => {res.status(200).send({success: 1, data: products, nPages: nPages})})
