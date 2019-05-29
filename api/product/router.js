@@ -61,19 +61,6 @@ productApiRouter.get("/:id", (req, res) => {
 
 })
 
-productApiRouter.put("/:id", (req, res) => {
-    productModel.update(
-        {_id: req.params.id},
-        {
-            title: req.body.title,
-            price: req.body.price,
-            discription: req.body.discription,
-            category: req.body.category
-        }
-    )
-    .then(savedProduct => res.status(200).send({success: 1, data: savedProduct}))
-    .catch(err => res.status(500).send({success: 0, err: err}))
-})
 
 productApiRouter.delete("/:id", (req, res) => {
     productModel.deleteOne({_id: req.params.id})
