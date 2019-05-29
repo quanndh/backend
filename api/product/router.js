@@ -54,11 +54,7 @@ productApiRouter.get("/filter", (req, res) => {
     } 
 })
 
-productApiRouter.get("/:category", (req, res) => {
-    productModel.find({category: req.param.category})
-    .then(products => res.status(200).send({success: 1, data: products}))
-    .catch(err => console.log(err))
-})
+
 
 productApiRouter.get("/:id", (req, res) => {
     productModel.findOne({_id : req.params.id})
@@ -67,7 +63,11 @@ productApiRouter.get("/:id", (req, res) => {
 
 })
 
-
+productApiRouter.get("/:category", (req, res) => {
+    productModel.find({category: req.param.category})
+    .then(products => res.status(200).send({success: 1, data: products}))
+    .catch(err => console.log(err))
+})
 productApiRouter.delete("/:id", (req, res) => {
     productModel.deleteOne({_id: req.params.id})
     .then(() => {
