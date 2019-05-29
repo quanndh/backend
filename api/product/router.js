@@ -64,7 +64,7 @@ productApiRouter.get("/:id", (req, res) => {
 })
 
 productApiRouter.get("/:category", (req, res) => {
-    productModel.find({category: req.param.category})
+    productModel.find({category: req.params.category})
     .then(products => res.status(200).send({success: 1, data: products}))
     .catch(err => console.log(err))
 })
