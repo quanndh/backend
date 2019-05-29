@@ -54,7 +54,7 @@ productApiRouter.get("/filter", (req, res) => {
     } 
 })
 
-productApiRouter.get(":/category", (req, res) => {
+productApiRouter.get("/:category", (req, res) => {
     productModel.find({category: req.param.category})
     .then(products => res.status(200).send({success: 1, data: products}))
     .catch(err => console.log(err))
