@@ -2,6 +2,7 @@ const express = require("express");
 const Router = express.Router;
 const orderApiRouter = Router();
 const orderModel = require("./model");
+const productModel = require("../product/model");
 const nodemailer = require("nodemailer");
 
 orderApiRouter.post("/", (req, res) => {
@@ -40,8 +41,41 @@ orderApiRouter.post("/", (req, res) => {
 
 orderApiRouter.get("/", (req, res) => {
     orderModel.find({})
-    .then(orders => res.status(200).send({success: 1, data: orders}))
+    .then(orders => {
+        res.status(200).send({success: 1, data: orders})
+    })
     .catch(err => console.log(err));
+})
+
+
+  
+orderApiRouter.get("/:email", (req, res) => {
+    orderModel.find({buyerEmail: req.params.email})
+    .then(orders => {
+        let items = [];
+        let category = [];
+        for(let i = 0; i < orders.length; i++){
+            for(let j = 0; j < orders[i].orderedItems.length; j++){
+                items.push(orders[i].orderedItems[j])
+                category.push(orders[i].orderedItems[j].category)
+            }
+        }
+        let count = countOccurrences(category)
+        let fav = "";
+        let max = 0;
+        for(keys in count){
+            if(count[keys] > max){
+                max = count[keys]
+                fav = keys
+            }
+        }
+        productModel.find({category: fav})
+        .then(products => {
+            let index = Math.floor(Math.random() * products.length)
+            res.send({success: 1, data: products[index]})
+        }).catch(err => console.log(err))
+    })
+    .catch(err => console.log(err))
 })
 
 module.exports = orderApiRouter;

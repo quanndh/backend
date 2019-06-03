@@ -38,7 +38,6 @@ authRouter.post("/", (req, res) => {
 
 authRouter.get("/me", (req, res) => {
     if(!req.session.user){
-        // res.redirect("http://localhost:3000/")
         res.status(403).send({success: 0, message: ' unauthozied'})
     } else {
         userModel.findById(req.session.user.id, "-password")
