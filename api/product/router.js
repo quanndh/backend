@@ -39,7 +39,7 @@ productApiRouter.get("/", (req, res) => {
 })
 
 productApiRouter.get("/sale", (req, res) => {
-    console.log(req.session.user)
+    console.log(req.session)
     if(!req.session.user){
         console.log("no")
         productModel.find({})
