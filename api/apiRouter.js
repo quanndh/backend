@@ -11,11 +11,13 @@ apiRouter.get("/", (req, res) => {
     res.send("hello");
 })
 
+apiRouter.use("/login", authApiRouter);
+
 apiRouter.use("/users", userApiRouter);
 
 apiRouter.use("/products", productApiRouter);
 
-apiRouter.use("/login", authApiRouter);
+
 
 apiRouter.use((req, res, next) => {
     if(req.session.user){

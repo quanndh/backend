@@ -39,7 +39,9 @@ productApiRouter.get("/", (req, res) => {
 })
 
 productApiRouter.get("/sale", (req, res) => {
+    console.log(req.session.user)
     if(!req.session.user){
+        console.log("no")
         productModel.find({})
         .then(products => {
             let index = Math.floor(Math.random() * products.length)
@@ -47,6 +49,7 @@ productApiRouter.get("/sale", (req, res) => {
         })
         .catch(err => res.status(500).send({success: 0, err: err}))
     } else {
+        console.log("yes")
         orderModel.find({buyerEmail: req.session.user.email})
         .then(orders => {
             let items = [];

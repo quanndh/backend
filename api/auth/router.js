@@ -23,7 +23,7 @@ authRouter.post("/", (req, res) => {
                     }
                     req.session.user = user;
                     
-                    res.send({success: 1});
+                    res.send({success: 1, user: req.session.user});
                     // res.redirect("http://localhost:3000/");
                 } else {
                     res.status(401).send({success: 0, message: "Wrong username or password"});
