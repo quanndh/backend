@@ -39,6 +39,18 @@ orderApiRouter.post("/", (req, res) => {
         .catch(err => console.log(err))
 })
 
+function countOccurrences(arr) {
+    var newarr = arr.reduce(function(newarr, curr){
+      if(typeof(newarr[curr]) == "undefined"){
+          newarr[curr] = 1;
+      } else {
+        newarr[curr]++
+      }
+      return newarr;
+    }, {})
+    return newarr;
+  }
+
 orderApiRouter.get("/", (req, res) => {
     orderModel.find({})
     .then(orders => {
@@ -69,11 +81,7 @@ orderApiRouter.get("/:email", (req, res) => {
                 fav = keys
             }
         }
-        productModel.find({category: fav})
-        .then(products => {
-            let index = Math.floor(Math.random() * products.length)
-            res.send({success: 1, data: products[index]})
-        }).catch(err => console.log(err))
+        res.send({success: 1, data: orders, statistic: count, fav: fav})
     })
     .catch(err => console.log(err))
 })
