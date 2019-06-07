@@ -73,6 +73,10 @@ orderApiRouter.get("/:email", (req, res) => {
             }
         }
         let count = countOccurrences(category)
+        let statistic = [];
+        for(keys in count){
+            statistic.push({title: keys, value: count[keys]})
+        }
         let fav = "";
         let max = 0;
         for(keys in count){
@@ -81,7 +85,7 @@ orderApiRouter.get("/:email", (req, res) => {
                 fav = keys
             }
         }
-        res.send({success: 1, data: orders, statistic: count, fav: fav})
+        res.send({success: 1, data: orders, statistic: statistic, fav: fav})
     })
     .catch(err => console.log(err))
 })
