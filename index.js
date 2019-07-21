@@ -21,7 +21,7 @@ app.use(session({
   }
 }))
 
-app.use(cors({ origin: ["http://localhost:3000","https://xcommerce-client.herokuapp.com"], credentials: true }))
+app.use(cors({ origin: ["https://xcommerce-client.herokuapp.com"], credentials: true }))
 
 app.use((req, res, next) => {
   res.setHeader("X-Frame-Options", "ALLOWALL");
@@ -31,7 +31,7 @@ app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
   }
 
-  res.setHeader("Access-Control-Allow-Origin", "http://xcommerce-client.herokuapp.com/");
+  res.setHeader("Access-Control-Allow-Origin", " ");
 
  
   res.setHeader(
